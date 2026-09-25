@@ -25,10 +25,6 @@ public class ClientView extends VBox
         setMaxWidth(150);
         setPrefWidth(150);
 
-        setMinHeight(600);
-        setMaxHeight(600);
-        setPrefHeight(600);
-
         createBallArea();
         createInfoArea();
         createDiceArea();
@@ -39,11 +35,12 @@ public class ClientView extends VBox
     private void createBallArea()
     {
         ballArea = new FlowPane();
-        ballArea.setAlignment(Pos.BOTTOM_CENTER);
+        ballArea.setAlignment(Pos.TOP_LEFT);
         ballArea.setPadding(new Insets(8));
-        ballArea.setHgap(3);
-        ballArea.setVgap(3);
-        ballArea.setPrefHeight(300);
+        ballArea.setHgap(2);
+        ballArea.setVgap(2);
+        ballArea.setPrefHeight(370);
+        ballArea.setScaleY(-1);
 
         for (int i = 0; i < client.getBalls(); i ++)
         {
@@ -95,11 +92,11 @@ public class ClientView extends VBox
     private void createDiceArea()
     {
         diceArea = new FlowPane();
-        diceArea.setAlignment(Pos.TOP_CENTER);
+        diceArea.setAlignment(Pos.TOP_LEFT);
         diceArea.setPadding(new Insets(8));
         diceArea.setHgap(3);
         diceArea.setVgap(3);
-        diceArea.setPrefHeight(250);
+        diceArea.setPrefHeight(185);
 
         for(Dice dice : client.getDices())
         {

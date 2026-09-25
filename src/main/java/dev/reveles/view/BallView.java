@@ -7,7 +7,7 @@ public class BallView extends Circle
 {
     public BallView(boolean blue)
     {
-        super(10);
+        super(8);
 
         if (blue)
         {

@@ -33,11 +33,24 @@ public class Client
 
     public int getDicesValue()
     {
+        if(!hasDices())
+        {
+            return 0;
+        }
         int total = 0;
         for(Dice dice : dices)
         {
             total += dice.getValue();
         }
         return total;
+    }
+
+    public boolean hasDices()
+    {
+        if(dices.size() == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }
