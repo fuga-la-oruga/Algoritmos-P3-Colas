@@ -74,7 +74,7 @@ public class ClientView extends VBox
         person.setStyle("-fx-font-size: 42px;");
 
         Label number = new Label(String.valueOf(client.getId()));
-        number.setStyle("-fx-font-size: 20px; -fx-text-fill: #C0C0C0;");
+        number.setStyle("-fx-font-size: 20px; -fx-text-fill: #C0C0C0; -fx-font-weight: bold;");
 
         infoArea.getChildren().addAll(person, number);
 

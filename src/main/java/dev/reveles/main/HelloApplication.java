@@ -13,12 +13,11 @@ public class HelloApplication extends Application
     {
         GameController controller = new GameController();
         GameView view = new GameView(controller);
-        Scene scene = new Scene(view, 1650, 900);
+        Scene scene = new Scene(view, 1550, 750);
 
         stage.setTitle("Resource Reallocation");
         stage.setScene(scene);
-        stage.setMinWidth(1200);
-        stage.setMinHeight(700);
+        stage.setResizable(false);
         stage.show();
     }
 }
