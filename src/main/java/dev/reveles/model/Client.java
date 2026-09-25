@@ -1,16 +1,19 @@
 package dev.reveles.model;
 
+import java.util.ArrayList;
+
 public class Client
 {
     private int id;
     private int balls;
-    private Dice dice;
+    private ArrayList<Dice> dices;
 
     public Client(int id)
     {
         this.id = id;
         balls = 4;
-        dice = new Dice();
+        dices = new ArrayList<Dice>();
+        dices.add(new Dice());
     }
 
     public int getId()
@@ -23,8 +26,18 @@ public class Client
         return balls;
     }
 
-    public Dice getDice()
+    public ArrayList<Dice> getDices()
     {
-        return dice;
+        return dices;
+    }
+
+    public int getDicesValue()
+    {
+        int total = 0;
+        for(Dice dice : dices)
+        {
+            total += dice.getValue();
+        }
+        return total;
     }
 }

@@ -1,6 +1,8 @@
 package dev.reveles.controller;
 
 import dev.reveles.model.Client;
+import dev.reveles.model.Dice;
+
 import java.util.ArrayList;
 
 public class GameController
@@ -23,7 +25,10 @@ public class GameController
     {
         for (Client client : clients)
         {
-            client.getDice().roll();
+            for(Dice dice : client.getDices())
+            {
+                dice.roll();
+            }
         }
     }
 
