@@ -54,17 +54,18 @@ public class GameView extends BorderPane
     private void createControls()
     {
         actionButton = new Button("Roll");
-        actionButton.setPrefWidth(180);
-        actionButton.setPrefHeight(65);
-        actionButton.setStyle("-fx-font-size: 28px;");
+        actionButton.setPrefWidth(100);
+        actionButton.setPrefHeight(60);
+        actionButton.setStyle("-fx-font-size: 20px;");
         actionButton.setOnAction(event -> handleAction());
 
         turnLabel = new Label("Turn: 0");
         turnLabel.setStyle("-fx-font-size: 32px;");
 
         Button resetButton = new Button("Reset");
-        resetButton.setPrefWidth(120);
-        resetButton.setPrefHeight(50);
+        resetButton.setPrefWidth(100);
+        resetButton.setPrefHeight(60);
+        resetButton.setStyle("-fx-font-size: 20px;");
         resetButton.setOnAction(event -> reset());
 
         HBox controls = new HBox();

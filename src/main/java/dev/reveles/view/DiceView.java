@@ -18,15 +18,15 @@ public class DiceView extends StackPane
     {
         this.value = value;
 
-        Rectangle background = new Rectangle(32, 32);
+        Rectangle background = new Rectangle(40, 40);
         background.setArcWidth(10);
         background.setArcHeight(10);
         background.setFill(Color.rgb(255, 127, 127));
 
         dots = new GridPane();
-        dots.setPrefSize(32, 32);
-        dots.setMinSize(32, 32);
-        dots.setMaxSize(32, 32);
+        dots.setPrefSize(38, 38);
+        dots.setMinSize(38, 38);
+        dots.setMaxSize(38, 38);
         dots.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < 3; i ++)
@@ -111,7 +111,7 @@ public class DiceView extends StackPane
 
     private void addDot(int row, int col)
     {
-        Circle dot = new Circle(3);
+        Circle dot = new Circle(4);
         dot.setFill(Color.WHITE);
 
         StackPane cell = new StackPane(dot);
