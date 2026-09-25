@@ -11,11 +11,11 @@ public class BallView extends Circle
 
         if (blue)
         {
-            setFill(Color.rgb(128, 128, 128));
+            setFill(Color.rgb(0, 148, 255));
         }
         else
         {
-            setFill(Color.rgb(0, 148, 255));
+            setFill(Color.rgb(128, 128, 128));
         }
     }
 }
