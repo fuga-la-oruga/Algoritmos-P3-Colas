@@ -45,7 +45,6 @@ public class DiceView extends StackPane
         }
 
         getChildren().addAll(background, dots);
-
         setValue(value);
     }
 
@@ -113,10 +112,8 @@ public class DiceView extends StackPane
     {
         Circle dot = new Circle(4);
         dot.setFill(Color.WHITE);
-
         StackPane cell = new StackPane(dot);
         cell.setAlignment(Pos.CENTER);
-
         dots.add(cell, col, row);
     }
 

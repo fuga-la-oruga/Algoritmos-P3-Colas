@@ -2,7 +2,6 @@ package dev.reveles.controller;
 
 import dev.reveles.model.Client;
 import dev.reveles.model.Dice;
-
 import java.util.ArrayList;
 
 public class GameController
@@ -14,7 +13,6 @@ public class GameController
     {
         clients = new ArrayList<>();
         turn = 0;
-
         for (int i = 1; i <= 10; i ++)
         {
             clients.add(new Client(i));
@@ -51,13 +49,6 @@ public class GameController
         }
     }
 
-    public ArrayList<Client> getClients()
-    {
-        return clients;
-    }
-
-    public int getTurn()
-    {
-        return turn;
-    }
+    public ArrayList<Client> getClients() {return clients;}
+    public int getTurn() {return turn;}
 }

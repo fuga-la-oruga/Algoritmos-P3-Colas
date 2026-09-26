@@ -11,20 +11,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
+
 public class GameView extends BorderPane
 {
     private GameController controller;
     private GridPane clientGrid;
     private Button actionButton;
     private Label turnLabel;
-
     private boolean rolled;
 
     public GameView(GameController controller)
     {
         this.controller = controller;
         rolled = false;
-
         createClients();
         createControls();
     }
@@ -47,7 +47,6 @@ public class GameView extends BorderPane
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
         setCenter(scrollPane);
     }
 
@@ -97,13 +96,32 @@ public class GameView extends BorderPane
             {
                 actionButton.setDisable(true);
             }
+
+            ArrayList<Client> clients = controller.getClients();
+            for(int i = 0; i < 10; i ++)
+            {
+                if(i == 0)
+                {
+                    for(int j = 0; j < clients.get(0).getDicesValue(); j ++)
+                    {
+                        clients.get(0).addToLine(1);
+                    }
+                    continue;
+                }
+
+                for(int j = 0; j < clients.get(i).getDicesValue(); j ++)
+                {
+                    int toAdd = clients.get(i - 1).removeFromLine();
+                    if(toAdd == -1) {break;}
+                    clients.get(i).addToLine(toAdd);
+                }
+            }
         }
     }
 
     private void updateClients()
     {
         clientGrid.getChildren().clear();
-
         for (Client client : controller.getClients())
         {
             ClientView clientView = new ClientView(client);
@@ -111,10 +129,7 @@ public class GameView extends BorderPane
         }
     }
 
-    private void updateTurn()
-    {
-        turnLabel.setText("Turn: " + controller.getTurn());
-    }
+    private void updateTurn() {turnLabel.setText("Turn: " + controller.getTurn());}
 
     private void reset()
     {
@@ -122,7 +137,6 @@ public class GameView extends BorderPane
         rolled = false;
         actionButton.setText("Roll");
         actionButton.setDisable(false);
-
         updateTurn();
         updateClients();
     }

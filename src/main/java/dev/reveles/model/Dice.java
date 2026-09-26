@@ -13,13 +13,6 @@ public class Dice
         value = 1;
     }
 
-    public int roll()
-    {
-        return value = random.nextInt(6) + 1;
-    }
-
-    public int getValue()
-    {
-        return value;
-    }
+    public int roll() {return value = random.nextInt(6) + 1;}
+    public int getValue() {return value;}
 }
