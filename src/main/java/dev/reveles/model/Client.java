@@ -32,6 +32,19 @@ public class Client
         return total;
     }
 
+    public void addDice(Dice dice)
+    {
+        dices.add(dice);
+    }
+
+    public Dice removeDice()
+    {
+        if(!hasDices()) {return null;}
+        Dice toReturn = dices.get(dices.size() - 1);
+        dices.remove(dices.size() - 1);
+        return toReturn;
+    }
+
     public boolean hasDices()
     {
         if(dices.size() == 0) {return false;}
