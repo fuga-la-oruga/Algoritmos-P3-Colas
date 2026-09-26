@@ -42,7 +42,7 @@ public class Client
 
     public void addToLine(int element)
     {
-        if(element != 1 || element != 0) {return;}
+        if(element != 1 && element != 0) {return;}
         line.add(element);
     }
     public int removeFromLine()

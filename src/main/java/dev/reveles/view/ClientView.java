@@ -24,14 +24,14 @@ public class ClientView extends VBox
         setMaxWidth(150);
         setPrefWidth(150);
 
-        createBallArea();
+        createLineArea();
         createInfoArea();
         createDiceArea();
 
         getChildren().addAll(lineArea, infoArea, diceArea);
     }
 
-    private void createBallArea()
+    private void createLineArea()
     {
         lineArea = new FlowPane();
         lineArea.setAlignment(Pos.TOP_LEFT);
@@ -41,7 +41,7 @@ public class ClientView extends VBox
         lineArea.setPrefHeight(370);
         lineArea.setScaleY(-1);
 
-        for (int i = client.getLineLenght(); i > 0; i --)
+        for (int i = client.getLineLenght() - 1; i >= 0; i --)
         {
             lineArea.getChildren().add(new BallView(client.getFromLine(i)));
         }

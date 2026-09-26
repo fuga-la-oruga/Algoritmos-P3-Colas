@@ -91,32 +91,35 @@ public class GameView extends BorderPane
             updateTurn();
             actionButton.setText("Roll");
             rolled = false;
-
-            if (controller.getTurn() >= 20)
-            {
-                actionButton.setDisable(true);
-            }
+            if (controller.getTurn() >= 20) {actionButton.setDisable(true);}
 
             ArrayList<Client> clients = controller.getClients();
-            for(int i = 0; i < 10; i ++)
+            for(int i = 9; i >= 0; i --)
             {
                 if(i == 0)
                 {
-                    for(int j = 0; j < clients.get(0).getDicesValue(); j ++)
+                    int amountToAdd = clients.get(0).getDicesValue();
+                    while(amountToAdd != 0)
                     {
                         clients.get(0).addToLine(1);
+                        amountToAdd --;
                     }
                     continue;
                 }
 
-                for(int j = 0; j < clients.get(i).getDicesValue(); j ++)
+                int amountToPass = clients.get(i - 1).getLineLenght() >= clients.get(i).getDicesValue() ?
+                    clients.get(i).getDicesValue() :
+                    clients.get(i - 1).getLineLenght();
+
+                while(amountToPass != 0)
                 {
-                    int toAdd = clients.get(i - 1).removeFromLine();
-                    if(toAdd == -1) {break;}
-                    clients.get(i).addToLine(toAdd);
+                    int elementToPass = clients.get(i - 1).removeFromLine();
+                    clients.get(i).addToLine(elementToPass);
+                    amountToPass --;
                 }
             }
         }
+        updateClients();
     }
 
     private void updateClients()
