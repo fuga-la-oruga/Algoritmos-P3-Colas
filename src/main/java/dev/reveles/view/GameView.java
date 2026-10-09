@@ -67,21 +67,17 @@ public class GameView extends BorderPane
         turnLabel = new Label("Turn: 0");
         turnLabel.setStyle("-fx-font-size: 32px;");
 
-        Button resetButton = new Button("Reset");
-        resetButton.setPrefWidth(100);
-        resetButton.setPrefHeight(60);
-        resetButton.setStyle("-fx-font-size: 16px;");
-        resetButton.setOnAction(event -> reset());
-
         Button activityButton = new Button("Activity");
         Button throughputButton = new Button("Throughput");
         Button systemButton = new Button("Number in System");
         Button timeButton = new Button("Time in System");
+        Button resetButton = new Button("Reset");
 
         activityButton.setOnAction(event -> new ChartWindow(controller, "Activity").open());
         throughputButton.setOnAction(event -> new ChartWindow(controller, "Throughput").open());
         systemButton.setOnAction(event -> new ChartWindow(controller, "Number in System").open());
         timeButton.setOnAction(event -> new ChartWindow(controller, "Time in System").open());
+        resetButton.setOnAction(event -> reset());
 
         HBox controls = new HBox();
         controls.setAlignment(Pos.CENTER_LEFT);
@@ -92,11 +88,11 @@ public class GameView extends BorderPane
         (
             actionButton,
             turnLabel,
-            resetButton,
             activityButton,
             throughputButton,
             systemButton,
-            timeButton
+            timeButton,
+            resetButton
         );
 
         setBottom(controls);

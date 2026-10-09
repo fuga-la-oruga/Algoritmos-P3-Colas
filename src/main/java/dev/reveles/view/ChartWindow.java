@@ -37,6 +37,7 @@ public class ChartWindow
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(chartType);
+        stage.setResizable(false);
 
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
@@ -102,15 +103,12 @@ public class ChartWindow
     private void updateChart()
     {
         chart.getData().clear();
-
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
         ArrayList<String> categories = new ArrayList<>();
 
         if(chartType.equals("Activity"))
         {
             String player = playerChoice.getValue();
             String activity = actionChoice.getValue();
-            series.setName(player + " - " + activity);
 
             for(int turn = 1; turn <= 20; turn ++)
             {
@@ -141,53 +139,33 @@ public class ChartWindow
                         value = controller.getRolled(playerNumber, turn);
                     }
                 }
-
-                series.getData().add(new XYChart.Data<>(String.valueOf(turn), value));
             }
         }
         else if(chartType.equals("Throughput"))
         {
-            series.setName("Player 10");
-
             for(int turn = 1; turn <= 20; turn ++)
             {
                 categories.add(String.valueOf(turn));
-                series.getData().add(new XYChart.Data<>
-                (
-                    String.valueOf(turn),
-                    controller.getThroughput(turn)
-                ));
             }
         }
         else if(chartType.equals("Number in System"))
         {
-            series.setName("Total Balls");
-
             for(int turn = 0; turn <= 20; turn ++)
             {
                 categories.add(String.valueOf(turn));
-
-                series.getData().add(new XYChart.Data<>
-                (
-                    String.valueOf(turn),
-                    controller.getNumberInSystem(turn)
-                ));
             }
         }
         else
         {
-            series.setName("Blue Balls");
             ArrayList<Integer> times = controller.getTimeInSystem();
 
             for(int i = 0; i < times.size(); i ++)
             {
                 int order = i + 1;
                 categories.add(String.valueOf(order));
-                series.getData().add(new XYChart.Data<>(String.valueOf(order), times.get(i)));
             }
         }
 
         xAxis.setCategories(FXCollections.observableArrayList(categories));
-        chart.getData().add(series);
     }
 }
