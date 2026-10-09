@@ -55,44 +55,71 @@ public class GameView extends BorderPane
         setCenter(scrollPane);
     }
 
-
     private void createControls()
     {
         actionButton = new Button("Roll");
-        actionButton.setPrefWidth(100);
-        actionButton.setPrefHeight(60);
+        actionButton.setPrefSize(100, 60);
         actionButton.setStyle("-fx-font-size: 20px;");
         actionButton.setOnAction(event -> handleAction());
 
         turnLabel = new Label("Turn: 0");
         turnLabel.setStyle("-fx-font-size: 32px;");
 
+        HBox leftControls = new HBox(15);
+        leftControls.setAlignment(Pos.CENTER_LEFT);
+        leftControls.getChildren().addAll(actionButton, turnLabel);
+
         Button activityButton = new Button("Activity");
         Button throughputButton = new Button("Throughput");
         Button systemButton = new Button("Number in System");
         Button timeButton = new Button("Time in System");
-        Button resetButton = new Button("Reset");
 
-        activityButton.setOnAction(event -> new ChartWindow(controller, "Activity").open());
-        throughputButton.setOnAction(event -> new ChartWindow(controller, "Throughput").open());
-        systemButton.setOnAction(event -> new ChartWindow(controller, "Number in System").open());
-        timeButton.setOnAction(event -> new ChartWindow(controller, "Time in System").open());
+        activityButton.setOnAction(event ->
+                new ChartWindow(controller, "Activity").open()
+        );
+
+        throughputButton.setOnAction(event ->
+                new ChartWindow(controller, "Throughput").open()
+        );
+
+        systemButton.setOnAction(event ->
+                new ChartWindow(controller, "Number in System").open()
+        );
+
+        timeButton.setOnAction(event ->
+                new ChartWindow(controller, "Time in System").open()
+        );
+
+        HBox chartControls = new HBox(10);
+        chartControls.setAlignment(Pos.CENTER);
+        chartControls.getChildren().addAll(
+                activityButton,
+                throughputButton,
+                systemButton,
+                timeButton
+        );
+
+        Button resetButton = new Button("Reset");
+        resetButton.setPrefSize(100, 60);
+        resetButton.setStyle("-fx-font-size: 16px;");
         resetButton.setOnAction(event -> reset());
 
-        HBox controls = new HBox();
-        controls.setAlignment(Pos.CENTER_LEFT);
-        controls.setSpacing(15);
+        HBox rightControls = new HBox();
+        rightControls.setAlignment(Pos.CENTER_RIGHT);
+        rightControls.getChildren().add(resetButton);
+
+        HBox controls = new HBox(15);
+        controls.setAlignment(Pos.CENTER);
         controls.setPadding(new Insets(15));
 
-        controls.getChildren().addAll
-        (
-            actionButton,
-            turnLabel,
-            activityButton,
-            throughputButton,
-            systemButton,
-            timeButton,
-            resetButton
+        HBox.setHgrow(leftControls, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(chartControls, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(rightControls, javafx.scene.layout.Priority.ALWAYS);
+
+        controls.getChildren().addAll(
+                leftControls,
+                chartControls,
+                rightControls
         );
 
         setBottom(controls);

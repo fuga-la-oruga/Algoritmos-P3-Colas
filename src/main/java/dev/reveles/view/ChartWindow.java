@@ -92,6 +92,7 @@ public class ChartWindow
 
         chart = new BarChart<>(xAxis, yAxis);
         chart.setAnimated(false);
+        chart.setLegendVisible(false);
 
         root.setCenter(chart);
         updateChart();
@@ -103,18 +104,20 @@ public class ChartWindow
     private void updateChart()
     {
         chart.getData().clear();
+
         ArrayList<String> categories = new ArrayList<>();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         if(chartType.equals("Activity"))
         {
             String player = playerChoice.getValue();
             String activity = actionChoice.getValue();
 
+            series.setName(player + " - " + activity);
+
             for(int turn = 1; turn <= 20; turn ++)
             {
-                categories.add(String.valueOf(turn));
                 double value;
-
                 if(player.equals("All"))
                 {
                     if(activity.equals("Moved"))
@@ -139,6 +142,9 @@ public class ChartWindow
                         value = controller.getRolled(playerNumber, turn);
                     }
                 }
+
+                categories.add(String.valueOf(turn));
+                series.getData().add(new XYChart.Data<>(String.valueOf(turn), value));
             }
         }
         else if(chartType.equals("Throughput"))
@@ -146,6 +152,12 @@ public class ChartWindow
             for(int turn = 1; turn <= 20; turn ++)
             {
                 categories.add(String.valueOf(turn));
+
+                series.getData().add(new XYChart.Data<>
+                (
+                    String.valueOf(turn),
+                    controller.getThroughput(turn)
+                ));
             }
         }
         else if(chartType.equals("Number in System"))
@@ -153,19 +165,25 @@ public class ChartWindow
             for(int turn = 0; turn <= 20; turn ++)
             {
                 categories.add(String.valueOf(turn));
+                series.getData().add(new XYChart.Data<>
+                (
+                    String.valueOf(turn),
+                    controller.getNumberInSystem(turn)
+                ));
             }
         }
-        else
+        else if(chartType.equals("Time in System"))
         {
             ArrayList<Integer> times = controller.getTimeInSystem();
-
             for(int i = 0; i < times.size(); i ++)
             {
                 int order = i + 1;
                 categories.add(String.valueOf(order));
+                series.getData().add(new XYChart.Data<>(String.valueOf(order), times.get(i)));
             }
         }
 
         xAxis.setCategories(FXCollections.observableArrayList(categories));
+        chart.getData().add(series);
     }
 }
