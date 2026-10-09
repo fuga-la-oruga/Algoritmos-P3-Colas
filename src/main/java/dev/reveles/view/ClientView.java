@@ -1,5 +1,6 @@
 package dev.reveles.view;
 
+import dev.reveles.model.Ball;
 import dev.reveles.model.Client;
 import dev.reveles.model.Dice;
 import javafx.geometry.Insets;

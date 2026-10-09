@@ -1,6 +1,7 @@
 package dev.reveles.view;
 
 import dev.reveles.controller.GameController;
+import dev.reveles.model.Ball;
 import dev.reveles.model.Client;
 import dev.reveles.model.Dice;
 import javafx.geometry.Insets;
@@ -103,9 +104,9 @@ public class GameView extends BorderPane
                 if(i == 0)
                 {
                     int amountToAdd = clients.get(0).getDicesValue();
-                    while(amountToAdd != 0)
+                    while(amountToAdd > 0)
                     {
-                        clients.get(0).addToLine(1);
+                        clients.get(0).addToLine(new Ball(1, controller.getTurn()));
                         amountToAdd --;
                     }
                     continue;
@@ -115,10 +116,13 @@ public class GameView extends BorderPane
                     clients.get(i).getDicesValue() :
                     clients.get(i - 1).getLineLenght();
 
-                while(amountToPass != 0)
+                while(amountToPass > 0)
                 {
-                    int elementToPass = clients.get(i - 1).removeFromLine();
-                    clients.get(i).addToLine(elementToPass);
+                    Ball ball = clients.get(i - 1).removeFromLine();
+                    if(ball != null)
+                    {
+                        clients.get(i).addToLine(ball);
+                    }
                     amountToPass --;
                 }
             }
