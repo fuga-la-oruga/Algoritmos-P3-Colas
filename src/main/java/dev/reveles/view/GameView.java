@@ -55,6 +55,7 @@ public class GameView extends BorderPane
         setCenter(scrollPane);
     }
 
+
     private void createControls()
     {
         actionButton = new Button("Roll");
@@ -69,14 +70,34 @@ public class GameView extends BorderPane
         Button resetButton = new Button("Reset");
         resetButton.setPrefWidth(100);
         resetButton.setPrefHeight(60);
-        resetButton.setStyle("-fx-font-size: 20px;");
+        resetButton.setStyle("-fx-font-size: 16px;");
         resetButton.setOnAction(event -> reset());
+
+        Button activityButton = new Button("Activity");
+        Button throughputButton = new Button("Throughput");
+        Button systemButton = new Button("Number in System");
+        Button timeButton = new Button("Time in System");
+
+        activityButton.setOnAction(event -> new ChartWindow(controller, "Activity").open());
+        throughputButton.setOnAction(event -> new ChartWindow(controller, "Throughput").open());
+        systemButton.setOnAction(event -> new ChartWindow(controller, "Number in System").open());
+        timeButton.setOnAction(event -> new ChartWindow(controller, "Time in System").open());
 
         HBox controls = new HBox();
         controls.setAlignment(Pos.CENTER_LEFT);
-        controls.setSpacing(45);
+        controls.setSpacing(15);
         controls.setPadding(new Insets(15));
-        controls.getChildren().addAll(actionButton, turnLabel, resetButton);
+
+        controls.getChildren().addAll
+        (
+            actionButton,
+            turnLabel,
+            resetButton,
+            activityButton,
+            throughputButton,
+            systemButton,
+            timeButton
+        );
 
         setBottom(controls);
     }

@@ -95,7 +95,7 @@ public class GameController
         {
             total += rolled[i][turn];
         }
-        return total / 10.0;
+        return total / 10;
     }
 
     public double getAllMoved(int turn)
@@ -105,7 +105,7 @@ public class GameController
         {
             total += moved[i][turn];
         }
-        return total / 10.0;
+        return total / 10;
     }
 
     public int getThroughput(int turn) {return throughput[turn];}
