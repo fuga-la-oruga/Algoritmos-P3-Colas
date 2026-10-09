@@ -90,25 +90,35 @@ public class GameView extends BorderPane
             actionButton.setText("Move");
             rolled = true;
         }
+
         else
         {
             controller.nextTurn();
             updateTurn();
             actionButton.setText("Roll");
             rolled = false;
-            if (controller.getTurn() >= 20) {actionButton.setDisable(true);}
+
+            if(controller.getTurn() >= 20)
+            {
+                actionButton.setDisable(true);
+            }
 
             ArrayList<Client> clients = controller.getClients();
+            int[] movedThisTurn = new int[10];
+
             for(int i = 9; i >= 0; i --)
             {
                 if(i == 0)
                 {
                     int amountToAdd = clients.get(0).getDicesValue();
+                    movedThisTurn[0] = amountToAdd;
+
                     while(amountToAdd > 0)
                     {
                         clients.get(0).addToLine(new Ball(1, controller.getTurn()));
                         amountToAdd --;
                     }
+
                     continue;
                 }
 
@@ -116,16 +126,27 @@ public class GameView extends BorderPane
                     clients.get(i).getDicesValue() :
                     clients.get(i - 1).getLineLenght();
 
+                movedThisTurn[i - 1] = amountToPass;
+
                 while(amountToPass > 0)
                 {
                     Ball ball = clients.get(i - 1).removeFromLine();
+
                     if(ball != null)
                     {
                         clients.get(i).addToLine(ball);
+
+                        if(i == 9)
+                        {
+                            controller.updateTimeInSystem(ball);
+                        }
                     }
+
                     amountToPass --;
                 }
             }
+
+            controller.recordTurn(movedThisTurn);
         }
         updateClients();
     }
