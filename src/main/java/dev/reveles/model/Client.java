@@ -1,4 +1,3 @@
-
 package dev.reveles.model;
 
 import java.util.ArrayList;
