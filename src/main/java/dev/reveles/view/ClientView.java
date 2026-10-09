@@ -147,4 +147,42 @@ public class ClientView extends VBox
     }
 
     public Client getClient() {return client;}
+
+    public FlowPane getDiceArea() {return diceArea;}
+
+    public void setDiceSelected(boolean selected)
+    {
+        if(selected)
+        {
+            diceArea.setBorder
+            (
+                new Border
+                (
+                    new BorderStroke
+                    (
+                        Color.rgb(63, 63, 63),
+                        BorderStrokeStyle.SOLID,
+                        CornerRadii.EMPTY,
+                        new BorderWidths(3)
+                    )
+                )
+            );
+        }
+        else
+        {
+            diceArea.setBorder
+            (
+                new Border
+                (
+                    new BorderStroke
+                    (
+                        Color.rgb(192, 192, 192),
+                        BorderStrokeStyle.SOLID,
+                        CornerRadii.EMPTY,
+                        new BorderWidths(3)
+                    )
+                )
+            );
+        }
+    }
 }

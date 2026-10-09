@@ -2,6 +2,7 @@ package dev.reveles.view;
 
 import dev.reveles.controller.GameController;
 import dev.reveles.model.Client;
+import dev.reveles.model.Dice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ public class GameView extends BorderPane
     private Button actionButton;
     private Label turnLabel;
     private boolean rolled;
+    private Client selectedClient;
 
     public GameView(GameController controller)
     {
@@ -122,12 +124,26 @@ public class GameView extends BorderPane
         updateClients();
     }
 
+
     private void updateClients()
     {
         clientGrid.getChildren().clear();
+
         for (Client client : controller.getClients())
         {
             ClientView clientView = new ClientView(client);
+
+            clientView.setDiceSelected
+            (
+                selectedClient != null &&
+                selectedClient.getId() == client.getId()
+            );
+
+            clientView.getDiceArea().setOnMouseClicked(event ->
+            {
+                handleDiceClick(client);
+            });
+
             clientGrid.add(clientView, client.getId() - 1, 0);
         }
     }
@@ -136,11 +152,40 @@ public class GameView extends BorderPane
 
     private void reset()
     {
+        selectedClient = null;
         controller.reset();
         rolled = false;
         actionButton.setText("Roll");
         actionButton.setDisable(false);
         updateTurn();
+        updateClients();
+    }
+
+    private void handleDiceClick(Client client)
+    {
+        if (rolled) {return;}
+
+        if (selectedClient == null)
+        {
+            if (!client.hasDices()) {return;}
+
+            selectedClient = client;
+            actionButton.setDisable(true);
+            updateClients();
+            return;
+        }
+
+        if (selectedClient.getId() == client.getId())
+        {
+            selectedClient = null;
+            actionButton.setDisable(false);
+            updateClients();
+            return;
+        }
+
+        client.addDice(selectedClient.removeDice());
+        selectedClient = null;
+        actionButton.setDisable(false);
         updateClients();
     }
 }
