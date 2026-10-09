@@ -1,3 +1,4 @@
+
 package dev.reveles.model;
 
 import java.util.ArrayList;
@@ -6,29 +7,35 @@ public class Client
 {
     private int id;
     private ArrayList<Dice> dices;
-    private ArrayList<Integer> line;
+    private ArrayList<Ball> line;
 
     public Client(int id)
     {
         this.id = id;
         dices = new ArrayList<Dice>();
         dices.add(new Dice());
-        line = new ArrayList<Integer>();
+        line = new ArrayList<Ball>();
+
         if(id != 10)
         {
-            line.add(0); line.add(0);
-            line.add(0); line.add(0);
+            for(int i = 0; i < 4; i ++)
+            {
+                line.add(new Ball(0, -1));
+            }
         }
     }
 
     public int getId() {return id;}
     public ArrayList<Dice> getDices() {return dices;}
+    public ArrayList<Ball> getLine() {return line;}
 
     public int getDicesValue()
     {
-        if(!hasDices()) {return 0;}
         int total = 0;
-        for(Dice dice : dices) {total += dice.getValue();}
+        for(Dice dice : dices)
+        {
+            total += dice.getValue();
+        }
         return total;
     }
 
@@ -39,7 +46,8 @@ public class Client
 
     public Dice removeDice()
     {
-        if(!hasDices()) {return null;}
+        if(dices.size() == 0) {return null;}
+
         Dice toReturn = dices.get(dices.size() - 1);
         dices.remove(dices.size() - 1);
         return toReturn;
@@ -47,29 +55,30 @@ public class Client
 
     public boolean hasDices()
     {
-        if(dices.size() == 0) {return false;}
-        return true;
+        return dices.size() > 0;
     }
 
-    public int getLineLenght() {return line.size();}
+    public int getLineLenght()
+    {
+        return line.size();
+    }
 
-    public void addToLine(int element)
+    public void addToLine(Ball ball)
     {
-        if(element != 1 && element != 0) {return;}
-        line.add(element);
+        line.add(ball);
     }
-    public int removeFromLine()
+
+    public Ball removeFromLine()
     {
-        if(line.size() == 0)
-        {
-            return -1;
-        }
-        else
-        {
-            int toReturn = line.get(0);
-            line.remove(0);
-            return toReturn;
-        }
+        if(line.size() == 0) {return null;}
+
+        Ball toReturn = line.get(0);
+        line.remove(0);
+        return toReturn;
     }
-    public int getFromLine(int index) {return line.get(index);}
+
+    public Ball getFromLine(int index)
+    {
+        return line.get(index);
+    }
 }
