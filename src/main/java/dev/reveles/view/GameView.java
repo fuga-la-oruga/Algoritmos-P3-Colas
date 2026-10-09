@@ -27,8 +27,10 @@ public class GameView extends BorderPane
     {
         this.controller = controller;
         rolled = false;
+        selectedClient = null;
         createClients();
         createControls();
+        updateClients();
     }
 
     private void createClients()
@@ -163,7 +165,7 @@ public class GameView extends BorderPane
 
     private void handleDiceClick(Client client)
     {
-        if (rolled) {return;}
+        if (rolled || controller.getTurn() == 20) {return;}
 
         if (selectedClient == null)
         {
